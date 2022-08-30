@@ -1,9 +1,8 @@
 <?php
-	//$servername = "192.168.254.100";
-$servername = "localhost";
-$username = "root";
-$password = "";
-$database = "auxiliary";
+$servername = "91.192.194.139";
+$username = "idessrte_sample";
+$password = 'Jc-rt%^hK&B$_sample';
+$database = "idessrte_sample";
 
 $conn = mysqli_connect($servername,$username,$password,$database);
 if (!$conn) {

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags always come first -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Central Mindanao University</title>
+
+<!-- header logo -->
+<link rel="icon" href="Central_Mindanao_University_logo.png" type="image/x-icon">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+
+  <!-- Bootstrap core CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="css/mdb.min.css" rel="stylesheet">
+  <!-- Sweet Alert css -->
+<link rel="stylesheet" href="sweetAlert/dist/sweetalert2.min.css">
+
+  <!-- Your custom styles (optional) -->
+  <style>
+    .card.card-cascade .view.gradient-card-header {
+            padding: 1.1rem 1rem;
+        }
+
+        .card.card-cascade .view {
+            box-shadow: 0 5px 12px 0 rgba(0, 0, 0, 0.2), 0 2px 8px 0 rgba(0, 0, 0, 0.19);
+        }
+    </style>
+</head>
+
+<body class="fixed-sn white-skin">
+
+  <header>
+
+  <!-- Main layout -->
+  <main>
+    <div class="container-fluid">
+
+      <!-- Section: Edit Account -->
+      <section class="section">
+          <!-- Second column -->
+          <div class="col-lg-12 mb-4">
+
+            <!-- Card -->
+            <div class="card card-cascade narrower">
+
+              <!-- Card image -->
+              <div class="view view-cascade gradient-card-header mdb-color lighten-3">
+                <h5 class="mb-0 font-weight-bold">Register Account</h5>
+              </div>
+              <!-- Card image -->
+
+              <!-- Card content -->
+              <div class="card-body card-body-cascade text-center">
+                  <!-- First row -->
+
+                  <div class="row">
+                    <!-- First column -->
+                    <div class="col-md-4">
+                      <div class="md-form mb-0">
+                        <input type="text" id="username" class="form-control validate" required="required" onkeyup="validUsername(this.value)">
+                        <label id="labelusername">Username</label>
+                      </div>
+                    </div>
+                    <!-- Second column -->
+                    <div class="col-md-4">
+                      <div class="md-form mb-0">
+                        <input type="password" id="pass" class="form-control validate" required="required" onkeyup="matchPass()">
+                        <label id="labelpass">Password</label>
+                      </div>
+                    </div>
+                    <!-- Third column -->
+                    <div class="col-md-4">
+                      <div class="md-form mb-0">
+                        <input type="password" id="cpass" class="form-control validate" required="required" onkeyup="matchPass()">
+                        <label id="labelcpass">Confirm Password</label>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- First row -->
+
+                  <!-- First row -->
+                  <div class="row">
+                    <!-- First column -->
+                    <div class="col-md-4">
+                      <div class="md-form mb-0">
+                        <input type="text" id="fname" class="form-control validate">
+                        <label for="form81" data-error="wrong" data-success="right">First name</label>
+                      </div>
+                    </div>
+
+                    <!-- Second column -->
+                    <div class="col-md-4">
+                      <div class="md-form mb-0">
+                        <input type="text" id="mname" class="form-control validate">
+                        <label for="form82" data-error="wrong" data-success="right">Middle name</label>
+                      </div>
+                    </div>
+
+                    <div class="col-md-4">
+                      <div class="md-form mb-0">
+                        <input type="text" id="lname" class="form-control validate">
+                        <label for="form82" data-error="wrong" data-success="right">Last name</label>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="row">
+                    <div class="col-md-12 text-center my-4">
+                      <input type="submit" value="Register" class="btn btn-info btn-rounded"  id="buttonRegister" disabled="disabled">
+                      <input type="text" id="usernameValidator" value="" hidden="">
+                      <div class ="text-center">
+                    Already have an account?
+                   <a href="index.html" style=" text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;">Login here</a>
+                  </div>
+                    </div>
+
+                  </div>
+                <!-- Edit Form -->
+
+              </div>
+              <!-- Card content -->
+
+            </div>
+            <!-- Card -->
+
+          </div>
+        
+      </section>
+      <!-- Section: Edit Account -->
+
+    </div>
+
+  </main>
+  <!-- Main layout -->
+
+
+  <!-- SCRIPTS -->
+  <!-- JQuery -->
+  <script src="js/jquery-3.4.1.min.js"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="js/mdb.min.js"></script>
+
+
+  <script type="text/javascript">
+    function validUsername(str) {
+      var username = document.getElementById("username").value;
+      
+    if (str.length == 0) { 
+       // document.getElementById("txtHint").innerHTML = "";
+        return;
+    } 
+    else {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+               //document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
+
+               if (username === xmlhttp.responseText) {
+                 $('label#labelusername').attr("data-success","Invalid");
+                 document.getElementById("usernameValidator").value = "invalid";
+                }
+                else{
+                 $('label#labelusername').attr("data-success","Valid");
+                 document.getElementById("usernameValidator").value = "valid";
+
+                }
+            }
+        };
+        xmlhttp.open("GET", "trigger/takenUsername.php?q=" + str, true);
+        xmlhttp.send();
+    }
+    
+  }
+    function matchPass(){
+      var pass = document.getElementById("pass").value;
+      var cpass = document.getElementById("cpass").value;
+
+      if(cpass ===  "") { 
+            document.getElementById('buttonRegister').disabled = true; 
+        }else if(pass === ""){
+             document.getElementById('buttonRegister').disabled = true; 
+        }else if (cpass != pass){
+             document.getElementById('buttonRegister').disabled = true; 
+              $('input#cpass').empty();
+                          $('label#labelcpass').attr("data-success","Not match");
+             $('input#pass').empty();
+                          $('label#labelpass').attr("data-success","Not match");
+
+        }
+        else{
+
+             document.getElementById('buttonRegister').disabled = false; 
+
+              $('input#cpass').empty();
+                          $('label#labelcpass').attr("data-success","Match");
+             $('input#pass').empty();
+                          $('label#labelpass').attr("data-success","Match");
+
+        }
+    }
+  </script>
+<script src="sweetAlert/dist/sweetalert2.min.js"> </script>
+
+  <script type="text/javascript">
+    
+        $(document).ready(function(e){
+          $('#buttonRegister').click(function(e){
+             var usernameValid = document.getElementById("usernameValidator").value;
+             var username = document.getElementById("username").value;
+             var password = document.getElementById("pass").value;
+             var fname = document.getElementById("fname").value;
+             var mname = document.getElementById("mname").value;
+             var lname = document.getElementById("lname").value;
+             if (usernameValid === "invalid") {
+                Swal.fire({
+                        icon: 'error',
+                        title: 'Invalid',
+                        text: 'Opps... looks like the USERNAME is Invalid, Please try valid username again thank you.',
+                        showConfirmButton: true
+                      })
+             }
+             else if (username === "") {
+              Swal.fire({
+                        icon: 'error',
+                        title: 'Invalid',
+                        text: 'Opps... looks like the USERNAME is Empty, Please try input username again thank you.',
+                        showConfirmButton: true
+                      })
+             }
+             else if (fname === "") {
+              Swal.fire({
+                        icon: 'error',
+                        title: 'Invalid',
+                        text: 'Opps... looks like the FIRST NAME is Empty, Please try input your first name again thank you.',
+                        showConfirmButton: true
+                      })
+             }
+            /* else if (mname === "") {
+              Swal.fire({
+                        icon: 'error',
+                        title: 'Invalid',
+                        text: 'Opps... looks like the MIDDLE NAME is Empty, Please try input your middle name again thank you.',
+                        showConfirmButton: true
+                      })
+             }
+*/             else if (lname === "") {
+              Swal.fire({
+                        icon: 'error',
+                        title: 'Invalid',
+                        text: 'Opps... looks like the LAST NAME is Empty, Please try input your last name again thank you.',
+                        showConfirmButton: true
+                      })
+             }
+             else{
+              $.ajax({
+                url:'trigger/confirmRegister.php',
+                method:'POST',
+                data:{username:username,
+                password:password,
+                fname:fname,
+                lname:lname,
+                mname:mname},
+                success:function(datass){
+
+                if(datass === "saved"){
+                  Swal.fire({
+                        icon: 'success',
+                        title: 'Saved!',
+                        text: 'Your account has been successfully created, but it is disabled, please wait to the administrator to activate your account, thank you!',
+                        showConfirmButton: true
+                      })
+                   location.href = "index.html";
+
+                  }
+                  else if (datass === "no") {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Invalid',
+                        text: 'Something went wrong!',
+                        showConfirmButton: true
+                      })
+                  }
+                  else if (datass === "error") {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Invalid',
+                        text: 'Something went wrong!',
+                        showConfirmButton: true
+                      })
+                  }
+                  else if (datass === "accountExist") {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Invalid',
+                        text: 'Duplication of account is invalid',
+                        showConfirmButton: true
+                      })
+                  }
+
+                }
+              });
+             }
+          });
+        });
+  </script>
+</body>
+
+</html>

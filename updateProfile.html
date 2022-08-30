@@ -1,0 +1,301 @@
+
+<script src="js/jquery-3.4.1.min.js"></script>
+ <!-- SCRIPTS -->
+  <!-- JQuery -->
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="js/mdb.min.js"></script>
+  <script>
+  $(document).ready(function()
+  {
+      $.ajax({
+        url:'trigger/sessionID.php',
+        method: 'POST',
+        success:function(data){
+          if (data==="noUserID") {
+            location.href = "index.html";
+          }
+        }
+      });  
+  });
+</script>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags always come first -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Central Mindanao University</title>
+
+<!-- header logo -->
+<link rel="icon" href="Central_Mindanao_University_logo.png" type="image/x-icon">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+
+  <!-- Bootstrap core CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="css/mdb.min.css" rel="stylesheet">
+  <!-- Sweet Alert css -->
+<link rel="stylesheet" href="sweetAlert/dist/sweetalert2.min.css">
+
+  <!-- Your custom styles (optional) -->
+  <style>
+    .card.card-cascade .view.gradient-card-header {
+            padding: 1.1rem 1rem;
+        }
+
+        .card.card-cascade .view {
+            box-shadow: 0 5px 12px 0 rgba(0, 0, 0, 0.2), 0 2px 8px 0 rgba(0, 0, 0, 0.19);
+        }
+    </style>
+</head>
+
+<body class="fixed-sn white-skin">
+
+  <header>
+
+  <!-- Main layout -->
+  <main>
+    <div class="container-fluid">
+
+      <!-- Section: Edit Account -->
+      <section class="section">
+          <!-- Second column -->
+          <div class="col-lg-12 mb-4">
+
+            <!-- Card -->
+            <div class="card card-cascade narrower">
+
+              <!-- Card image -->
+              <div class="view view-cascade gradient-card-header mdb-color lighten-3">
+                <h5 class="mb-0 font-weight-bold">Update Account</h5>
+              </div>
+              <!-- Card image -->
+
+              <!-- Card content -->
+              <div class="card-body card-body-cascade text-center">
+                  <!-- First row -->
+
+                  <div class="row">
+                    <!-- First column -->
+                    <div class="col-md-4">
+                      <div class="md-form mb-0">
+                        <input type="password" id="currentPass" class="form-control validate" required="required" onkeyup="currentPass()">
+                        <label id="labelcurrentpass">Current Password</label>
+                      </div>
+                    </div>
+                    <!-- Second column -->
+                    <div class="col-md-4">
+                      <div class="md-form mb-0">
+                        <input type="password" id="pass" class="form-control validate" required="required" onkeyup="matchPass()">
+                        <label id="labelpass">New Password</label>
+                      </div>
+                    </div>
+                    <!-- Third column -->
+                    <div class="col-md-4">
+                      <div class="md-form mb-0">
+                        <input type="password" id="cpass" class="form-control validate" required="required" onkeyup="matchPass()">
+                        <label id="labelcpass">Confirm Password</label>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- First row -->
+
+                  <!-- First row -->
+                  <div class="row">
+                    <!-- First column -->
+                    <div class="col-md-4">
+                      <div class="md-form mb-0">
+                        <input type="text" id="fname" class="form-control validate" placeholder="First Name">
+                      </div>
+                    </div>
+
+                    <!-- Second column -->
+                    <div class="col-md-4">
+                      <div class="md-form mb-0">
+                        <input type="text" id="mname" class="form-control validate" placeholder="Middle Name">
+                      </div>
+                    </div>
+
+                    <div class="col-md-4">
+                      <div class="md-form mb-0">
+                        <input type="text" id="lname" class="form-control validate" placeholder="Last Name">
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="row">
+                    <div class="col-md-12 text-center my-4">
+                      <input type="submit" value="Update" class="btn btn-success btn-rounded"  id="buttonRegister" disabled="disabled">
+                      <input type="text" id="currentPassValidator" value="" hidden="">
+                      <div class ="text-center">
+                   <a href="v-1.html" style=" text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;">Back</a>
+                  </div>
+                    </div>
+
+                  </div>
+                <!-- Edit Form -->
+
+              </div>
+              <!-- Card content -->
+
+            </div>
+            <!-- Card -->
+
+          </div>
+        
+      </section>
+      <!-- Section: Edit Account -->
+
+    </div>
+
+  </main>
+  <!-- Main layout -->
+
+
+ 
+
+
+  <script type="text/javascript">
+    function currentPass() {
+      var currentPassInput = document.getElementById("currentPass").value;
+    $.ajax({
+                url:'trigger/validateCurrentPass.php',
+                method:'GET',
+                success:function(currentPass){
+                   if (currentPassInput != currentPass.trim()){
+                      document.getElementById('currentPassValidator').value = "wrong"; 
+                      $('label#labelcurrentpass').attr("data-success","Wrong");
+                   }
+                   else{
+                      document.getElementById('currentPassValidator').value = "correct"; 
+                      $('label#labelcurrentpass').attr("data-success","Correct");
+                   }
+                }
+              });
+  }
+    function matchPass(){
+      var pass = document.getElementById("pass").value;
+      var cpass = document.getElementById("cpass").value;
+
+      if(cpass ===  "") { 
+            document.getElementById('buttonRegister').disabled = true; 
+        }else if(pass === ""){
+             document.getElementById('buttonRegister').disabled = true; 
+        }else if (cpass != pass){
+             document.getElementById('buttonRegister').disabled = true; 
+              $('input#cpass').empty();
+                          $('label#labelcpass').attr("data-success","Not match");
+             $('input#pass').empty();
+                          $('label#labelpass').attr("data-success","Not match");
+
+        }
+        else{
+
+             document.getElementById('buttonRegister').disabled = false; 
+
+              $('input#cpass').empty();
+                          $('label#labelcpass').attr("data-success","Match");
+             $('input#pass').empty();
+                          $('label#labelpass').attr("data-success","Match");
+
+        }
+    }
+  </script>
+<script src="sweetAlert/dist/sweetalert2.min.js"> </script>
+  <script type="text/javascript">
+    
+        $(document).ready(function(e){
+          $.ajax({
+                url:'trigger/loadUpdateProfile.php',
+                method:'POST',
+                success:function(yourName){
+                  var nameOfUser = yourName;
+                  var nameOfUserArray = nameOfUser.split("/");
+                  var nameNewArray = nameOfUserArray[1].split("*");  
+                  document.getElementById("fname").value = nameOfUserArray[0].trim();
+                  document.getElementById("mname").value = nameNewArray[0].trim();
+                  document.getElementById("lname").value = nameNewArray [1].trim();
+
+
+                }
+              });
+
+          $('#buttonRegister').click(function(e){
+           
+              var currentPassValidator = document.getElementById("currentPassValidator").value;
+             var newpassword = document.getElementById("pass").value;
+             var fname = document.getElementById("fname").value;
+             var mname = document.getElementById("mname").value;
+             var lname = document.getElementById("lname").value;
+            if (fname === "") {
+              Swal.fire({
+                        icon: 'error',
+                        title: 'Invalid',
+                        text: 'Opps... looks like the FIRST NAME is Empty, Please try input your first name again thank you.',
+                        showConfirmButton: true
+                      })
+             }
+             else if (currentPassValidator === "wrong") {
+              Swal.fire({
+                        icon: 'error',
+                        title: 'Invalid',
+                        text: 'Opps... looks like your CURRENT PASSWORD did not match, Please try input your Current Password again thank you.',
+                        showConfirmButton: true
+                      })
+             }
+             else if (currentPassValidator === "") {
+              Swal.fire({
+                        icon: 'error',
+                        title: 'Invalid',
+                        text: 'Opps... looks like your CURRENT PASSWORD is empty, Please try input your Current Password again thank you.',
+                        showConfirmButton: true
+                      })
+             }
+             else if (lname === "") {
+              Swal.fire({
+                        icon: 'error',
+                        title: 'Invalid',
+                        text: 'Opps... looks like the LAST NAME is Empty, Please try input your last name again thank you.',
+                        showConfirmButton: true
+                      })
+             }
+             else{
+              $.ajax({
+                url:'trigger/confirmUpdateProfile.php',
+                method:'POST',
+                data:{newpassword:newpassword,
+                fname:fname,
+                lname:lname,
+                mname:mname},
+                success:function(confirmation){
+                    if (confirmation.trim() === "saved") {
+                        Swal.fire({
+                        icon: 'success',
+                        title: 'Saved!',
+                        text: 'You successfully updated your account. But before it is updated you need to log-out first then login again, Thank you.',
+                        showConfirmButton: true
+                      })
+                     }
+                     else if (confirmation.trim() === "error") {
+                        Swal.fire({
+                        icon: 'error',
+                        title: 'Invalid',
+                        text: 'Error, Something went wrong.',
+                        showConfirmButton: true
+                      })
+                      }
+                
+                }
+              });
+             }
+
+          });
+        });
+  </script>
+</body>
+
+</html>
